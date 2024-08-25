@@ -1,0 +1,19 @@
+[gd_scene load_steps=2 format=3 uid="uid://bvbo30fxqogw"]
+
+[ext_resource type="Texture2D" uid="uid://8136kc15iy62" path="res://Placeholder Assets/Enemy Screen Template.png" id="1_2cf6n"]
+
+[node name="EnemyScreen" type="MarginContainer"]
+custom_minimum_size = Vector2(400, 180)
+offset_right = 400.0
+offset_bottom = 180.0
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 25
+theme_override_constants/margin_top = 40
+
+[node name="Control" type="Control" parent="."]
+custom_minimum_size = Vector2(350, 80)
+layout_mode = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="Control"]
+texture = ExtResource("1_2cf6n")
+centered = false

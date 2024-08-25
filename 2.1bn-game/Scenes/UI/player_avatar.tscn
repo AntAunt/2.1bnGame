@@ -1,6 +1,12 @@
-[gd_scene load_steps=3 format=3 uid="uid://r8lc8g81aijf"]
+[gd_scene load_steps=7 format=3 uid="uid://r8lc8g81aijf"]
 
 [ext_resource type="Texture2D" uid="uid://fjeu5mt8fkk1" path="res://Placeholder Assets/Avatar Placeholder.png" id="1_k6pgd"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7w3bt"]
+bg_color = Color(0.980568, 0.303996, 0.60207, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wfmfn"]
+bg_color = Color(0.402085, 0.628467, 0.789856, 1)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_u35yf"]
 animations = [{
@@ -13,8 +19,14 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lst4c"]
+bg_color = Color(0.847059, 0.6, 0.266667, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jylho"]
+bg_color = Color(0.847059, 0.6, 0.266667, 1)
+
 [node name="PlayerAvatar" type="VBoxContainer"]
-custom_minimum_size = Vector2(240, 180)
+custom_minimum_size = Vector2(180, 100)
 offset_right = 240.0
 offset_bottom = 180.0
 size_flags_vertical = 3
@@ -25,13 +37,28 @@ layout_mode = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="HealthBar"]
 layout_mode = 2
-theme_override_constants/margin_left = 80
-theme_override_constants/margin_right = 80
+theme_override_constants/margin_left = 60
+theme_override_constants/margin_right = 94
 
-[node name="ColorRect" type="ColorRect" parent="HealthBar/MarginContainer"]
-custom_minimum_size = Vector2(80, 45)
+[node name="VBoxContainer" type="VBoxContainer" parent="HealthBar/MarginContainer"]
+custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
-color = Color(1, 0, 1, 1)
+theme_override_constants/separation = 0
+
+[node name="ProgressBar" type="ProgressBar" parent="HealthBar/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(80, 20)
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
+theme_override_styles/fill = SubResource("StyleBoxFlat_7w3bt")
+step = 1.0
+value = 86.0
+
+[node name="ProgressBar2" type="ProgressBar" parent="HealthBar/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
+theme_override_styles/fill = SubResource("StyleBoxFlat_wfmfn")
+step = 1.0
+value = 75.0
 
 [node name="Thumbnail" type="HBoxContainer" parent="."]
 layout_mode = 2
@@ -39,24 +66,27 @@ theme_override_constants/separation = 0
 
 [node name="MarginContainer" type="MarginContainer" parent="Thumbnail"]
 layout_mode = 2
-theme_override_constants/margin_left = 60
+theme_override_constants/margin_left = 50
 theme_override_constants/margin_bottom = 60
 
 [node name="Control" type="Control" parent="Thumbnail/MarginContainer"]
-custom_minimum_size = Vector2(120, 120)
+custom_minimum_size = Vector2(120, 80)
 layout_mode = 2
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Thumbnail/MarginContainer/Control"]
+scale = Vector2(0.75, 0.75)
 sprite_frames = SubResource("SpriteFrames_u35yf")
 centered = false
 
 [node name="LeftAbility" type="Control" parent="Thumbnail/MarginContainer/Control/AnimatedSprite2D"]
-custom_minimum_size = Vector2(80, 80)
+custom_minimum_size = Vector2(80, 20)
 layout_mode = 3
 anchor_top = 1.0
 anchor_bottom = 1.0
+offset_left = -40.0
 offset_top = -40.0
 offset_right = 40.0
+offset_bottom = 40.0
 grow_horizontal = 0
 
 [node name="ProgressBar" type="ProgressBar" parent="Thumbnail/MarginContainer/Control/AnimatedSprite2D/LeftAbility"]
@@ -64,10 +94,13 @@ layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_top = -27.0
+offset_top = -35.0
 offset_right = 80.0
+offset_bottom = -8.0
 grow_vertical = 0
+theme_override_styles/fill = SubResource("StyleBoxFlat_lst4c")
 step = 1.0
+value = 60.0
 
 [node name="RightAbility" type="Control" parent="Thumbnail/MarginContainer/Control/AnimatedSprite2D"]
 layout_mode = 3
@@ -85,10 +118,13 @@ layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_top = -27.0
+offset_top = -35.0
 offset_right = 80.0
+offset_bottom = -8.0
 grow_vertical = 0
+theme_override_styles/fill = SubResource("StyleBoxFlat_jylho")
 step = 1.0
+value = 35.0
 
 [node name="ItemList" type="ItemList" parent="Thumbnail"]
 z_index = -1

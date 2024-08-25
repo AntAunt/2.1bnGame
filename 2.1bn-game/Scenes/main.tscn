@@ -1,19 +1,18 @@
-[gd_scene load_steps=3 format=3 uid="uid://bjvbwk2n66rs8"]
+[gd_scene load_steps=6 format=3 uid="uid://bjvbwk2n66rs8"]
 
-[ext_resource type="Texture2D" uid="uid://dn8hl1f7r8tph" path="res://Placeholder Assets/Main Template.png" id="1_hhplr"]
+[ext_resource type="Texture2D" uid="uid://bug8dkd2ewi0y" path="res://Placeholder Assets/Template Background.png" id="1_2b1t0"]
 [ext_resource type="PackedScene" uid="uid://r8lc8g81aijf" path="res://Scenes/UI/player_avatar.tscn" id="2_8eevl"]
+[ext_resource type="PackedScene" uid="uid://d2ddh7haoq2rv" path="res://Scenes/UI/item_list.tscn" id="3_48w01"]
+[ext_resource type="PackedScene" uid="uid://bvbo30fxqogw" path="res://Scenes/UI/enemy_screen.tscn" id="3_ylsem"]
+[ext_resource type="PackedScene" uid="uid://b0xynucrum12h" path="res://Scenes/UI/minefield.tscn" id="5_y5at3"]
 
 [node name="main" type="Node2D"]
 texture_filter = 1
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("1_hhplr")
+z_index = -2
+texture = ExtResource("1_2b1t0")
 centered = false
-
-[node name="Camera2D" type="Camera2D" parent="."]
-scale = Vector2(0.5, 0.5)
-anchor_mode = 0
-zoom = Vector2(2, 2)
 
 [node name="GridContainer" type="GridContainer" parent="."]
 offset_right = 640.0
@@ -25,20 +24,16 @@ columns = 2
 [node name="PlayerAvatar" parent="GridContainer" instance=ExtResource("2_8eevl")]
 layout_mode = 2
 
-[node name="EnemyScreen" type="ColorRect" parent="GridContainer"]
-custom_minimum_size = Vector2(400, 180)
+[node name="EnemyScreen" parent="GridContainer" instance=ExtResource("3_ylsem")]
 layout_mode = 2
-size_flags_horizontal = 3
-color = Color(0, 1, 0, 1)
 
-[node name="ItemList" type="ColorRect" parent="GridContainer"]
-custom_minimum_size = Vector2(0, 180)
+[node name="ItemList" parent="GridContainer" instance=ExtResource("3_48w01")]
 layout_mode = 2
-size_flags_vertical = 3
-color = Color(0, 1, 1, 1)
 
-[node name="Minefield" type="ColorRect" parent="GridContainer"]
-custom_minimum_size = Vector2(400, 180)
+[node name="Minefield" parent="GridContainer" instance=ExtResource("5_y5at3")]
 layout_mode = 2
-size_flags_horizontal = 3
-color = Color(1, 1, 0, 1)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+scale = Vector2(0.5, 0.5)
+anchor_mode = 0
+zoom = Vector2(2, 2)
