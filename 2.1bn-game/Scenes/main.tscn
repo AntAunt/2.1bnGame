@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3 uid="uid://bjvbwk2n66rs8"]
+
+[ext_resource type="Texture2D" uid="uid://dn8hl1f7r8tph" path="res://Placeholder Assets/Main Template.png" id="1_hhplr"]
+
+[node name="main" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_hhplr")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+scale = Vector2(0.5, 0.5)
+zoom = Vector2(2, 2)
