@@ -1,12 +1,44 @@
-[gd_scene load_steps=2 format=3 uid="uid://bjvbwk2n66rs8"]
+[gd_scene load_steps=3 format=3 uid="uid://bjvbwk2n66rs8"]
 
 [ext_resource type="Texture2D" uid="uid://dn8hl1f7r8tph" path="res://Placeholder Assets/Main Template.png" id="1_hhplr"]
+[ext_resource type="PackedScene" uid="uid://r8lc8g81aijf" path="res://Scenes/UI/player_avatar.tscn" id="2_8eevl"]
 
 [node name="main" type="Node2D"]
+texture_filter = 1
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_hhplr")
+centered = false
 
 [node name="Camera2D" type="Camera2D" parent="."]
 scale = Vector2(0.5, 0.5)
+anchor_mode = 0
 zoom = Vector2(2, 2)
+
+[node name="GridContainer" type="GridContainer" parent="."]
+offset_right = 640.0
+offset_bottom = 360.0
+theme_override_constants/h_separation = 0
+theme_override_constants/v_separation = 0
+columns = 2
+
+[node name="PlayerAvatar" parent="GridContainer" instance=ExtResource("2_8eevl")]
+layout_mode = 2
+
+[node name="EnemyScreen" type="ColorRect" parent="GridContainer"]
+custom_minimum_size = Vector2(400, 180)
+layout_mode = 2
+size_flags_horizontal = 3
+color = Color(0, 1, 0, 1)
+
+[node name="ItemList" type="ColorRect" parent="GridContainer"]
+custom_minimum_size = Vector2(0, 180)
+layout_mode = 2
+size_flags_vertical = 3
+color = Color(0, 1, 1, 1)
+
+[node name="Minefield" type="ColorRect" parent="GridContainer"]
+custom_minimum_size = Vector2(400, 180)
+layout_mode = 2
+size_flags_horizontal = 3
+color = Color(1, 1, 0, 1)
