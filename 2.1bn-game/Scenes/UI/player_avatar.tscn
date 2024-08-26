@@ -81,6 +81,7 @@ centered = false
 [node name="LeftAbility" type="Control" parent="Thumbnail/MarginContainer/Control/AnimatedSprite2D"]
 custom_minimum_size = Vector2(80, 20)
 layout_mode = 3
+anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
 offset_left = -40.0
@@ -104,6 +105,7 @@ value = 60.0
 
 [node name="RightAbility" type="Control" parent="Thumbnail/MarginContainer/Control/AnimatedSprite2D"]
 layout_mode = 3
+anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
