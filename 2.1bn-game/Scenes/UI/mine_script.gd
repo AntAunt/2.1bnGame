@@ -41,7 +41,7 @@ var cells_with_flags = []
 var cells_with_health = []
 var cells_with_mana = []
 var cells_with_treasure = []
-var flags_placed = []
+var flags_placed = 0
 var cells_checked_recursively = []
 var first_click = true
 
@@ -107,9 +107,10 @@ func place_mines(cell_coord: Vector2i):
 	
 	for cell in cells_with_mines:
 		erase_cell(cell)
-		set_cell(cell, TILE_SET_ID, CELLS.DEFAULT, 1)
+		set_cell(cell, TILE_SET_ID, CELLS.DEFAULT)
 
 func set_tile_cell(cell_coord, cell_type):
+	erase_cell(cell_coord)
 	set_cell(cell_coord, TILE_SET_ID, cell_type)
 	
 func on_cell_clicked(cell_coord: Vector2i):
@@ -190,25 +191,26 @@ func lose(cell_coord: Vector2i):
 	is_game_finished = true
 	
 	for cell in cells_with_mines:
-		set_tile_cell(cell, "MINE")
+		set_tile_cell(cell, CELLS.MINE)
 	
-	set_tile_cell(cell_coord, "MINE_RED")
+	set_tile_cell(cell_coord, CELLS.MINE)
 	
 func place_flag(cell_coord: Vector2i):
 	
 	if first_click:
 		# game_start.emit()
 		first_click = false
+		place_mines(cell_coord)
 	
 	var atlast_coordinates = get_cell_atlas_coords(cell_coord)
-	var is_empty_cell = atlast_coordinates == Vector2i(2,2)
-	var is_flag_cell = atlast_coordinates == Vector2i(0, 2)
+	var is_empty_cell = atlast_coordinates == CELLS.DEFAULT
+	var is_flag_cell = atlast_coordinates == CELLS.FLAG
 	
 	if !is_empty_cell and !is_flag_cell:
 		return
 	
 	if is_flag_cell:
-		set_tile_cell(cell_coord, "DEFAULT")
+		set_tile_cell(cell_coord, CELLS.DEFAULT)
 		cells_with_flags.erase(cell_coord)
 		flags_placed -= 1
 	elif is_empty_cell:
@@ -217,7 +219,7 @@ func place_flag(cell_coord: Vector2i):
 			return
 		
 		flags_placed +=1 
-		set_tile_cell(cell_coord, "FLAG")
+		set_tile_cell(cell_coord, CELLS.FLAG)
 		cells_with_flags.append(cell_coord)
 	
 	# flag_change.emit(flags_placed)
@@ -225,7 +227,7 @@ func place_flag(cell_coord: Vector2i):
 func quick_reveal(cell_coord: Vector2i):
 	
 	var atlast_coordinates = get_cell_atlas_coords(cell_coord)
-	var is_empty_cell = atlast_coordinates == Vector2i(2,2)
+	var is_empty_cell = atlast_coordinates == CELLS.DEFAULT
 	var target_cell
 	
 	if is_empty_cell || cells_with_flags.has(cell_coord):
@@ -241,7 +243,7 @@ func quick_reveal(cell_coord: Vector2i):
 			target_cell = cell_coord + Vector2i(x - 1, y - 1)
 			if cells_with_flags.has(target_cell):
 				continue
-			if !(get_cell_atlas_coords(target_cell) == Vector2i(2,2)):
+			if !(get_cell_atlas_coords(target_cell) == CELLS.DEFAULT):
 				continue
 			on_cell_clicked(target_cell)
 
@@ -252,7 +254,7 @@ func win():
 			if (cells_with_flags.has(cell_coord)):
 				continue
 			if (cells_with_mines.has(cell_coord)):
-				set_tile_cell(cell_coord, "FLAG")
+				set_tile_cell(cell_coord, CELLS.FLAG)
 				flags_placed +=1
 				# flag_change.emit(flags_placed)
 			else:
